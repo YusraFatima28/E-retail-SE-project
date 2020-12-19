@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "390665545818",
+    "firebase_url": "https://eshop-a3e24.firebaseio.com",
+    "project_id": "eshop-a3e24",
+    "storage_bucket": "eshop-a3e24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390665545818:android:3c908a3b50b2ea154b5063",
+        "android_client_info": {
+          "package_name": "com.yusra.eshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390665545818-jk8m4n8ump1onegmc60bvl0q3ctl27hl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-zqfAP0KECZOqRpq9mpHl18tqPvFlP9g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "390665545818-jk8m4n8ump1onegmc60bvl0q3ctl27hl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

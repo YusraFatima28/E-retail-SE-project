@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import '../Store/storehome.dart';
 
-
 int counter=0;
 class AdminOrderCard extends StatelessWidget
 {

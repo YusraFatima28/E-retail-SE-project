@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget
@@ -19,7 +20,26 @@ class CustomTextField extends StatelessWidget
   Widget build(BuildContext context)
   {
     return Container
-    (
+    (decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+    ),
+      padding: EdgeInsets.all(8),
+      margin: EdgeInsets.all(10),
+      child: TextFormField(
+        controller: controller,
+        obscureText: isObsecure,
+        cursorColor: Theme.of(context).primaryColor,
+        decoration: InputDecoration(
+          border:InputBorder.none,
+          prefixIcon: Icon(
+            data,color:Theme.of(context).primaryColor,
+
+          ),focusColor: Theme.of(context).primaryColor,
+          hintText: hintText,
+
+        ),
+      ),
     );
   }
 }
