@@ -83,7 +83,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 Divider(height: 10, color: Colors.white, thickness: 6),
                 ListTile(
-                  leading: Icon(Icons.home, color: Colors.white),
+                  leading: Icon(Icons.reorder, color: Colors.white),
                   title: Text(
                     'My Orders',
                     style: TextStyle(color: Colors.white),
@@ -95,7 +95,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 Divider(height: 10, color: Colors.white, thickness: 6),
                 ListTile(
-                  leading: Icon(Icons.home, color: Colors.white),
+                  leading: Icon(Icons.shopping_cart, color: Colors.white),
                   title: Text(
                     'My Carts',
                     style: TextStyle(color: Colors.white),
@@ -107,7 +107,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 Divider(height: 10, color: Colors.white, thickness: 6),
                 ListTile(
-                  leading: Icon(Icons.home, color: Colors.white),
+                  leading: Icon(Icons.search, color: Colors.white),
                   title: Text(
                     'Search',
                     style: TextStyle(color: Colors.white),
@@ -120,7 +120,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 Divider(height: 10, color: Colors.white, thickness: 6),
                 ListTile(
-                  leading: Icon(Icons.home, color: Colors.white),
+                  leading: Icon(Icons.add_location, color: Colors.white),
                   title: Text(
                     'Add new Address',
                     style: TextStyle(color: Colors.white),
@@ -133,7 +133,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 Divider(height: 10, color: Colors.white, thickness: 6),
                 ListTile(
-                  leading: Icon(Icons.home, color: Colors.white),
+                  leading: Icon(Icons.exit_to_app, color: Colors.white),
                   title: Text(
                     'Logout',
                     style: TextStyle(color: Colors.white),

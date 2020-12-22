@@ -16,7 +16,6 @@ class UploadPage extends StatefulWidget   {
   _UploadPageState createState() => _UploadPageState();
 }
 class _UploadPageState extends State<UploadPage> with AutomaticKeepAliveClientMixin<UploadPage> {
-
   //UploadFormState createState() => UploadFormState();
 //with AutomaticKeepAliveClientMixin<UploadPage>
   bool get wantKeepAlive => true;
@@ -62,7 +61,6 @@ class _UploadPageState extends State<UploadPage> with AutomaticKeepAliveClientMi
               },)
           ],
         ),body: displayAdminHomeScreenBody());}
-
         displayAdminHomeScreenBody(){
     return
       Container(
@@ -87,8 +85,6 @@ class _UploadPageState extends State<UploadPage> with AutomaticKeepAliveClientMi
                       style: TextStyle(fontSize: 20, color: Colors.white),),
                     color: Colors.green,
                     onPressed: () { takeImage(context);}))])));}
-
-
     takeImage(mContext) {
       return showDialog(context: mContext, builder: (con) {
         return SimpleDialog(
@@ -258,7 +254,6 @@ class _UploadPageState extends State<UploadPage> with AutomaticKeepAliveClientMi
      //Route route=MaterialPageRoute(builder: (c)=> displayAdminHomeScreen());
      //Navigator.pushReplacement(context, route);
      //Navigator.pop(context,displayAdminUploadFormScreen());
-
    });
   }
   uploadImageAndSaveitemInfo()async{
@@ -280,7 +275,7 @@ class _UploadPageState extends State<UploadPage> with AutomaticKeepAliveClientMi
     itemRef.document(productID).setData({
       "shortInfo": shortInfoTextEditingController.text.trim(),
     "longDescription": descriptionTextEditingController.text.trim(),
-    "price": priceTextEditingController.text.trim(),
+    "price": int.parse(priceTextEditingController.text),
     "publishedDate": DateTime.now(),
     "status": "available",
     "thumbnailUrl": downloadUrl,

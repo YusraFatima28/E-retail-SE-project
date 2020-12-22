@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_shop/Counters/BookQuantity.dart';
+import 'package:e_shop/Counters/ItemQuantity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,13 +24,21 @@ Future<void> main() async
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-            title: 'e-Shop',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              primaryColor: Colors.green,
-            ),
-            home: SplashScreen()
+    return MultiProvider(providers: [
+      ChangeNotifierProvider(create: (c)=> CartItemCounter(),),
+      ChangeNotifierProvider(create: (c)=> ItemQuantity(),),
+      ChangeNotifierProvider(create: (c)=> AddressChanger(),),
+      ChangeNotifierProvider(create: (c)=> TotalAmount(),),
+
+    ],
+      child: MaterialApp(
+        title: 'E-retail',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primaryColor: Colors.green,
+
+        ),home: SplashScreen(),
+      ),
     );
   }
 }
