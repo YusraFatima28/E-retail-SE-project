@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Store/Search.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
 class SearchBoxDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(

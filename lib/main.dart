@@ -12,13 +12,13 @@ import 'Counters/cartitemcounter.dart';
 import 'Counters/changeAddresss.dart';
 import 'Counters/totalMoney.dart';
 import 'Store/storehome.dart';
+import 'package:firebase_core/firebase_core.dart';
 Future<void> main() async
 {
   WidgetsFlutterBinding.ensureInitialized();
  EcommerceApp.auth=FirebaseAuth.instance;
  EcommerceApp.sharedPreferences= await SharedPreferences.getInstance();
  EcommerceApp.firestore = Firestore.instance;
-
   runApp(MyApp());
 }
 class MyApp extends StatelessWidget {
@@ -29,14 +29,12 @@ class MyApp extends StatelessWidget {
       ChangeNotifierProvider(create: (c)=> ItemQuantity(),),
       ChangeNotifierProvider(create: (c)=> AddressChanger(),),
       ChangeNotifierProvider(create: (c)=> TotalAmount(),),
-
     ],
       child: MaterialApp(
         title: 'E-retail',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: Colors.green,
-
         ),home: SplashScreen(),
       ),
     );
@@ -54,11 +52,10 @@ class _SplashScreenState extends State<SplashScreen>
     displaySplash();
   }
   displaySplash(){
-    Timer(Duration(seconds: 5),() async {
+    Timer(Duration(seconds: 1),() async {
       if(await EcommerceApp.auth.currentUser() !=null){
         Route route=MaterialPageRoute(builder: (_)=> StoreHome());
-        Navigator.pushReplacement(context, route);
-      }
+        Navigator.pushReplacement(context, route);}
       else{
         Route route=MaterialPageRoute(builder: (_)=> AuthenticScreen());
         Navigator.pushReplacement(context, route);
@@ -84,7 +81,7 @@ class _SplashScreenState extends State<SplashScreen>
     children: [
       Image.asset('images/welcome.png'),
     SizedBox(height: 20,),
-    Text('world\'s largest ecommerce app',
+    Text('A Place Where You Can Buy Anything ',
     style: TextStyle(color: Colors.white,),)
     ],
     )

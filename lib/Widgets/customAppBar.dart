@@ -1,7 +1,9 @@
+import 'package:e_shop/Config/config.dart';
 import 'package:e_shop/Store/cart.dart';
 import 'package:e_shop/Counters/cartitemcounter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 
 class MyAppBar extends StatelessWidget with PreferredSizeWidget
@@ -30,7 +32,7 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget
       ),
       centerTitle: true,
       title: Text(
-        'e-shop',style: TextStyle(
+        'E-Retail',style: TextStyle(
         fontSize: 55,
         color: Colors.white,
         fontFamily: "Signatra",
@@ -48,12 +50,12 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget
             Positioned(
               child: Stack(
                 children: [
-                  Icon(Icons.brightness_1,size:20,color: Colors.green,),
+                  Icon(Icons.brightness_1,size:20,color: Colors.lightGreen,),
                   Positioned(top:3,bottom: 4, left:4.0,
                     child: Consumer<CartItemCounter>(
                         builder: (context,counter,_){
-                          return Text(counter.count.toString(),style: TextStyle(color: Colors.white,
-                              fontSize: 12,fontWeight: FontWeight.w500),); }
+                          return Text((EcommerceApp.sharedPreferences.getStringList(EcommerceApp.userCartList).length-1).toString(),style: TextStyle(color: Colors.white,
+                              fontSize: 12,fontWeight: FontWeight.bold),); }
                     ),)
                 ],
               ),
@@ -62,9 +64,6 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget
         )
       ],
     );
-
   }
-
-
-  Size get preferredSize => bottom==null?Size(56,AppBar().preferredSize.height):Size(56, 80+AppBar().preferredSize.height);
+  Size get preferredSize => bottom==null?Size(56,AppBar().preferredSize.height):Size(56,80+AppBar().preferredSize.height);
 }

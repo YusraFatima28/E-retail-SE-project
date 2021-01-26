@@ -4,7 +4,7 @@ import 'package:e_shop/Models/item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:e_shop/Store/storehome.dart';
-
+import 'package:firebase_core/firebase_core.dart';
 class ProductPage extends StatefulWidget {
   final ItemModel itemModel;
   ProductPage({this.itemModel });
@@ -33,7 +33,6 @@ class _ProductPageState extends State<ProductPage> {
                     children: [
                       Center(
                         child: Image.network(widget.itemModel.thumbnailUrl),
-
                       ),
                       Container(
                         color: Colors.grey[300],
@@ -41,9 +40,7 @@ class _ProductPageState extends State<ProductPage> {
                           height: 1.0,
                           width: double.infinity,
                         ),
-
-                      )
-                    ],
+                      )],
                   ),
                   Container(
                     padding: EdgeInsets.all(20.0),
@@ -75,8 +72,7 @@ class _ProductPageState extends State<ProductPage> {
                             begin : const FractionalOffset(0.0,0.0),
                             end : const FractionalOffset(0.0, 0.5),
                             stops: [0,1],
-                            tileMode: TileMode.clamp,
-                          ),
+                            tileMode: TileMode.clamp,),
                         ),
                         width: MediaQuery.of(context).size.width- 40.0,
                         height: 50.0,
@@ -86,19 +82,9 @@ class _ProductPageState extends State<ProductPage> {
                       ),
                     ),
                   ),)
-
                 ],
-              ),
-
-
-            )
-          ],
-        )
+              ),)],)
       ),
-    );
-  }
-
-}
-
+    );}}
 const boldTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
 const largeTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 20);

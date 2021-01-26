@@ -10,6 +10,7 @@ import 'package:flutter/painting.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/src/painting/image_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class UploadPage extends StatefulWidget   {
 @override
@@ -250,7 +251,8 @@ class _UploadPageState extends State<UploadPage> with AutomaticKeepAliveClientMi
      priceTextEditingController.clear();
      shortInfoTextEditingController.clear();
      titleTextEditingController.clear();
-     displayAdminHomeScreen();
+     UploadPage();
+     //displayAdminHomeScreen();
      //Route route=MaterialPageRoute(builder: (c)=> displayAdminHomeScreen());
      //Navigator.pushReplacement(context, route);
      //Navigator.pop(context,displayAdminUploadFormScreen());

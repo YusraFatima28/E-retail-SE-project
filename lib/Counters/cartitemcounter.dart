@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:e_shop/Config/config.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class CartItemCounter extends ChangeNotifier{
   int counter = EcommerceApp.sharedPreferences.getStringList(EcommerceApp.userCartList).length-1;

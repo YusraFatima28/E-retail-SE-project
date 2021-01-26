@@ -11,6 +11,7 @@ import '../Widgets/loadingWidget.dart';
 import '../Widgets/myDrawer.dart';
 import '../Widgets/searchBox.dart';
 import '../Models/item.dart';
+import 'package:firebase_core/firebase_core.dart';
 double width;
 class StoreHome extends StatefulWidget {
   @override
@@ -35,7 +36,7 @@ class _StoreHomeState extends State<StoreHome> {
               ),
           ),
           title: Text(
-            'e-shop',style: TextStyle(
+            'E-Retail',style: TextStyle(
             fontSize: 55,
             color: Colors.white,
             fontFamily: "Signatra",
@@ -57,7 +58,7 @@ class _StoreHomeState extends State<StoreHome> {
                       Positioned(top:3,bottom: 4, left:4.0,
                       child: Consumer<CartItemCounter>(
                         builder: (context,counter,_){
-                          return Text(counter.count.toString(),style: TextStyle(color: Colors.white,
+                          return Text((EcommerceApp.sharedPreferences.getStringList(EcommerceApp.userCartList).length-1).toString(),style: TextStyle(color: Colors.white,
                           fontSize: 12,fontWeight: FontWeight.w500),); }
                       ),)
                     ],
@@ -83,8 +84,7 @@ class _StoreHomeState extends State<StoreHome> {
                          ItemModel model= ItemModel.fromJson(dataSnapshot.data.documents[index].data);
                          return sourceInfo(model,context); },
                   itemCount: dataSnapshot.data.documents.length,
-                );},
-            ),
+                );},),
           ],
         )
       ),
@@ -172,7 +172,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                             children: [
                               Text(
                                 r"New Price: ",style: TextStyle(fontSize: 14.0, color: Colors.grey),
-                              ),Text(r'$ ', style: TextStyle(color: Colors.red,fontSize: 16.0)),
+                              ),Text(r'$'  , style: TextStyle(color: Colors.red,fontSize: 16.0)),
                               Text(
                                 (model.price ).toString() ,style: TextStyle(fontSize: 16.0, color: Colors.grey),
                               ),
@@ -189,8 +189,12 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                   onPressed: (){
                     checkItemInCart(model.shortInfo, context);
                   },)
-                      : IconButton(icon: Icon(Icons.remove_shopping_cart, color: Colors.pinkAccent))
-
+                      : IconButton(icon: Icon(Icons.remove_shopping_cart, color: Colors.pinkAccent),
+                  onPressed: (){
+                        removeCartFunction();
+                        Route route=MaterialPageRoute(builder: (c)=> StoreHome());
+                        Navigator.pushReplacement(context, route);
+                  },)
                 ),Divider(height: 5.0,color: Colors.pink,),
                 // to implement the cart remove item feature
               ],
@@ -202,14 +206,31 @@ Widget sourceInfo(ItemModel model, BuildContext context,
   );
 }
 Widget card({Color primaryColor = Colors.redAccent, String imgPath}) {
-  return Container();
+  return Container(
+    height: 150,
+    width: width* 0.34,
+    margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+    decoration: BoxDecoration(
+      color: primaryColor,
+      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+      boxShadow: <BoxShadow>[
+        BoxShadow(offset: Offset(0,5), blurRadius: 10.0,color: Colors.grey[200])
+        ]
+    ),child: ClipRRect(
+      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+    child: Image.network(imgPath,
+      height: 150,
+      width: width* 0.34,
+      fit: BoxFit.fill,
+    ),
+  ),
+  );
 }
 void checkItemInCart(String shortInfoAsId, BuildContext context)
 {
   EcommerceApp.sharedPreferences.getStringList(EcommerceApp.userCartList).contains(shortInfoAsId)?
       Fluttertoast.showToast(msg: 'Item is already in cart')
-      : addItemToCart(shortInfoAsId,context);
-}
+      : addItemToCart(shortInfoAsId,context);}
 addItemToCart(String shortInfoAsId, BuildContext context){
   List tempCartList = EcommerceApp.sharedPreferences.getStringList(EcommerceApp.userCartList);
   tempCartList.add(shortInfoAsId);
@@ -218,6 +239,4 @@ addItemToCart(String shortInfoAsId, BuildContext context){
   EcommerceApp.sharedPreferences.setStringList(EcommerceApp.userCartList, tempCartList);
   Provider.of<CartItemCounter>(context,listen: false).displayResult();
   });
-
-
 }

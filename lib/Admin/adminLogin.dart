@@ -1,11 +1,11 @@
 import 'dart:wasm';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shop/Admin/uploadItems.dart';
 import 'package:e_shop/Authentication/authenication.dart';
 import 'package:e_shop/Widgets/customTextField.dart';
 import 'package:e_shop/DialogBox/errorDialog.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 class AdminSignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class AdminSignInPage extends StatelessWidget {
     )
     ),
     title: Text(
-    'e-shop',style: TextStyle(
+    'E-Retail',style: TextStyle(
     fontSize: 55,
     color: Colors.white,
     fontFamily: "Signatra",
@@ -42,7 +42,6 @@ class _AdminSignInScreenState extends State<AdminSignInScreen>
   final TextEditingController adminIDTextEditingController = TextEditingController();
   final TextEditingController passTextEditingController = TextEditingController();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -123,7 +122,6 @@ class _AdminSignInScreenState extends State<AdminSignInScreen>
           setState(() {
             adminIDTextEditingController.text='';
             passTextEditingController.text = '';
-
           });
           Route route=MaterialPageRoute(builder: (c)=> UploadPage());
           Navigator.pushReplacement(context, route);

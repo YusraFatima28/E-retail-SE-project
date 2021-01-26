@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../Store/storehome.dart';
 import 'package:e_shop/Config/config.dart';
-
+import 'package:firebase_core/firebase_core.dart';
 class Register extends StatefulWidget {
   @override
   _RegisterState createState() => _RegisterState();

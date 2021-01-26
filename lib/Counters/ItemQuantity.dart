@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class ItemQuantity with ChangeNotifier {
   int _numberOfItems=0;

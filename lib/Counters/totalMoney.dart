@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class TotalAmount extends ChangeNotifier{
   double _totalAmount=0;

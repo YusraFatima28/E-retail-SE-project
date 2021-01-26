@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'login.dart';
 import 'register.dart';
 import 'package:e_shop/Config/config.dart';
+import 'package:firebase_core/firebase_core.dart';
 class AuthenticScreen extends StatefulWidget {
   @override
   _AuthenticScreenState createState() => _AuthenticScreenState();
@@ -24,7 +25,7 @@ class _AuthenticScreenState extends State<AuthenticScreen> {
             )
           ),
         title: Text(
-        'e-shop',style: TextStyle(
+        'E-Retail',style: TextStyle(
         fontSize: 55,
         color: Colors.white,
         fontFamily: "Signatra",
