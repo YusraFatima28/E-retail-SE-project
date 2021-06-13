@@ -1,6 +1,8 @@
+import 'package:e_shop/Colors.dart';
+import 'package:e_shop/Widgets/Navigation_drawer/collapsing_navigation_drawer_widget.dart';
 import 'package:e_shop/Widgets/customAppBar.dart';
-import 'package:e_shop/Widgets/myDrawer.dart';
 import 'package:e_shop/Models/item.dart';
+import 'package:e_shop/Widgets/newAppBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:e_shop/Store/storehome.dart';
@@ -18,8 +20,10 @@ class _ProductPageState extends State<ProductPage> {
   { Size screenSize= MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        appBar: MyAppBar(),
-        drawer: MyDrawer(),
+        appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(60),
+            child : newAppBar() ),
+        drawer: CollapsingNavigationDrawer(),
         body: ListView(
           children: [
             Container(
@@ -50,13 +54,19 @@ class _ProductPageState extends State<ProductPage> {
                         children: [
                           Text(
                               ( widget.itemModel.title),style: boldTextStyle,
-                          ),SizedBox(height: 10.0,),
+                          ),SizedBox(height: 7.0,),
+                          Divider(color: AppColors.dashPurple, height: 40.0, thickness: 4, endIndent:18 ,indent: 0,),
                           Text(
-                            ( widget.itemModel.longDescription)
-                          ),SizedBox(height: 10.0,),
+                            ( widget.itemModel.shortInfo),style: boldTextStyle,
+                          ),SizedBox(height: 7.0,),
+                          Divider(color: AppColors.dashPurple, height: 40.0, thickness: 4, endIndent:18 ,indent: 0,),
                           Text(
-                            (r" $ " + widget.itemModel.price.toString()),style: boldTextStyle,
-                          ),SizedBox(height: 10.0,),
+                            ( widget.itemModel.longDescription), style: TextStyle(fontSize: 16),
+                          ),SizedBox(height: 7.0,),
+                          Divider(color: AppColors.dashPurple, height: 40.0, thickness: 4, endIndent:18 ,indent: 0,),
+                          Text(
+                            ("Rs " + widget.itemModel.price.toString()),style: boldTextStyle,
+                          ),SizedBox(height: 7.0,),
                         ],
                       ),
                     ),
@@ -67,12 +77,14 @@ class _ProductPageState extends State<ProductPage> {
                       onTap: ()=> checkItemInCart(widget.itemModel.shortInfo, context),
                       child: Container(
                         decoration: new BoxDecoration(
-                          gradient: new LinearGradient(
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.primary,
+                         /* gradient: new LinearGradient(
                             colors: [Colors.limeAccent,Colors.lightGreenAccent],
                             begin : const FractionalOffset(0.0,0.0),
                             end : const FractionalOffset(0.0, 0.5),
                             stops: [0,1],
-                            tileMode: TileMode.clamp,),
+                            tileMode: TileMode.clamp,),*/
                         ),
                         width: MediaQuery.of(context).size.width- 40.0,
                         height: 50.0,

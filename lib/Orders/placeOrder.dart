@@ -1,6 +1,7 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_shop/Colors.dart';
 import 'package:e_shop/Config/config.dart';
 import 'package:e_shop/Store/storehome.dart';
 import 'package:e_shop/Counters/cartitemcounter.dart';
@@ -11,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:intl/intl.dart';
+
 
 class PaymentPage extends StatefulWidget {
   final String addressID;
@@ -20,23 +23,16 @@ class PaymentPage extends StatefulWidget {
   @override
   _PaymentPageState createState() => _PaymentPageState();
 }
-
-
-
-
 class _PaymentPageState extends State<PaymentPage> {
+
+  String time = DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.now());
+
   @override
   Widget build(BuildContext context) {
     return Material(
       child: Container(
         decoration: new BoxDecoration(
-          gradient: new LinearGradient(
-            colors: [Colors.limeAccent,Colors.lightGreenAccent],
-            begin : const FractionalOffset(0.0,0.0),
-            end : const FractionalOffset(0.0, 0.5),
-            stops: [0,1],
-            tileMode: TileMode.clamp,
-          ),
+         color: AppColors.primary
         ),
         child: Center(
           child: Column(
@@ -61,6 +57,7 @@ class _PaymentPageState extends State<PaymentPage> {
   }
   addOrderDetails(){
     writeOrderDetailsForUser({
+
       EcommerceApp.addressID: widget.addressID,
       EcommerceApp.totalAmount: widget.totalAmount,
       "orderBy": EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID),

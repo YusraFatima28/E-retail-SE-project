@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shop/Admin/adminShiftOrders.dart';
+import 'package:e_shop/Colors.dart';
+import 'package:e_shop/Store/storehome.dart';
 import 'package:e_shop/Widgets/loadingWidget.dart';
 import 'package:e_shop/main.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -11,6 +13,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/src/painting/image_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+
+import 'Navigation_drawer/collapsing_navigation_drawer_widget.dart';
 
 class UploadPage extends StatefulWidget   {
 @override
@@ -35,37 +39,29 @@ class _UploadPageState extends State<UploadPage> with AutomaticKeepAliveClientMi
     displayAdminHomeScreen(){
     return Scaffold(
         appBar: AppBar(
-          flexibleSpace: Container(
-              decoration: new BoxDecoration(
-                  gradient: new LinearGradient(
-                    colors: [Colors.limeAccent, Colors.lightGreenAccent],
-                    begin: const FractionalOffset(0.0, 0.0),
-                    end: const FractionalOffset(0.0, 0.5),
-                    stops: [0, 1],
-                    tileMode: TileMode.clamp,
-                  )
-              )
+          iconTheme: IconThemeData(
+            color: Colors.white,
           ),
-          leading: IconButton(
-            icon: Icon(Icons.border_color, color: Colors.white), onPressed: () {
-            Route route = MaterialPageRoute(builder: (c) => AdminShiftOrders());
-            Navigator.pushReplacement(context, route);
-          },),
-          actions: [
-            FlatButton(child: Text('logout', style: TextStyle(
-                color: Colors.pink,
-                fontSize: 16,
-                fontWeight: FontWeight.bold),),
-              onPressed: () {
-                Route route = MaterialPageRoute(builder: (c) => SplashScreen());
-                Navigator.pushReplacement(context, route);
-              },)
-          ],
-        ),body: displayAdminHomeScreenBody());}
+          backgroundColor: AppColors.primary,
+          centerTitle: true,
+          elevation: 0,
+          title: Text(
+            'E-Retail',
+            style: TextStyle(
+              fontSize: 55,
+              color: Colors.white,
+              fontFamily: "Signatra",
+            ),
+          ),
+          //bottom: bottom,
+        ),
+        drawer: CollapsingNavigationDrawerAdmin(),
+        body: displayAdminHomeScreenBody());}
         displayAdminHomeScreenBody(){
     return
       Container(
-        decoration: new BoxDecoration(
+        color: AppColors.primaryWhiteSmoke,
+      /*  decoration: new BoxDecoration(
           gradient: new LinearGradient(
             colors: [Colors.limeAccent, Colors.lightGreenAccent],
             begin: const FractionalOffset(0.0, 0.0),
@@ -73,18 +69,18 @@ class _UploadPageState extends State<UploadPage> with AutomaticKeepAliveClientMi
             stops: [0, 1],
             tileMode: TileMode.clamp,
           ),
-        ), child: Center(
+        ),*/ child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.shop_two, color: Colors.white, size: 200),
+              Icon(Icons.shop_two, color: AppColors.dashPurple, size: 200),
               Padding(padding: EdgeInsets.only(top: 20,),
                 child: RaisedButton(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(9.0),),
-                    child: Text('add new item',
+                    child: Text('Add New Product',
                       style: TextStyle(fontSize: 20, color: Colors.white),),
-                    color: Colors.green,
+                    color: AppColors.primary,
                     onPressed: () { takeImage(context);}))])));}
     takeImage(mContext) {
       return showDialog(context: mContext, builder: (con) {
@@ -176,23 +172,24 @@ class _UploadPageState extends State<UploadPage> with AutomaticKeepAliveClientMi
           ),
           Padding(padding: EdgeInsets.only(top: 12.0)),
           ListTile(
-            leading: Icon(Icons.perm_device_information,color:Colors.pink),
+            leading: Icon(Icons.text_snippet_outlined,color:Colors.pink), // perm_device_information
             title: Container(
               width: 250.0,
               child: TextField(
                 style: TextStyle(color: Colors.deepPurpleAccent),
                 controller: shortInfoTextEditingController,
                 decoration: InputDecoration(
-                  hintText: 'short info',
+                  hintText: 'Short Information',
                   hintStyle: TextStyle(color: Colors.deepPurpleAccent),
                   border: InputBorder.none,
                 ),
+                keyboardType: TextInputType.text,
               ),
             ),
           ),
           Divider(color: Colors.pink),
           ListTile(
-            leading: Icon(Icons.perm_device_information,color:Colors.pink),
+            leading: Icon(Icons.text_snippet_outlined,color:Colors.pink),
             title: Container(
               width: 250.0,
               child: TextField(
@@ -203,12 +200,13 @@ class _UploadPageState extends State<UploadPage> with AutomaticKeepAliveClientMi
                   hintStyle: TextStyle(color: Colors.deepPurpleAccent),
                   border: InputBorder.none,
                 ),
+                keyboardType: TextInputType.text,
               ),
             ),
           ),
           Divider(color: Colors.pink),
           ListTile(
-            leading: Icon(Icons.perm_device_information,color:Colors.pink),
+            leading: Icon(Icons.text_snippet_outlined,color:Colors.pink),
             title: Container(
               width: 250.0,
               child: TextField(
@@ -219,12 +217,13 @@ class _UploadPageState extends State<UploadPage> with AutomaticKeepAliveClientMi
                   hintStyle: TextStyle(color: Colors.deepPurpleAccent),
                   border: InputBorder.none,
                 ),
+                keyboardType: TextInputType.text,
               ),
             ),
           ),
           Divider(color: Colors.pink),
           ListTile(
-            leading: Icon(Icons.perm_device_information,color:Colors.pink),
+            leading: Icon(Icons.text_snippet_outlined,color:Colors.pink),
             title: Container(
               width: 250.0,
               child: TextField(
@@ -276,12 +275,12 @@ class _UploadPageState extends State<UploadPage> with AutomaticKeepAliveClientMi
     final itemRef = Firestore.instance.collection('items');
     itemRef.document(productID).setData({
       "shortInfo": shortInfoTextEditingController.text.trim(),
-    "longDescription": descriptionTextEditingController.text.trim(),
-    "price": int.parse(priceTextEditingController.text),
-    "publishedDate": DateTime.now(),
-    "status": "available",
-    "thumbnailUrl": downloadUrl,
-    "title": titleTextEditingController.text.trim(),
+      "longDescription": descriptionTextEditingController.text.trim(),
+      "price": int.parse(priceTextEditingController.text),
+      "publishedDate": DateTime.now(),
+      "status": "available",
+      "thumbnailUrl": downloadUrl,
+      "title": titleTextEditingController.text.trim(),
     });
     setState(() {
       file=null;

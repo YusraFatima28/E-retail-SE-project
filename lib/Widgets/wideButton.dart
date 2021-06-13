@@ -1,3 +1,4 @@
+import 'package:e_shop/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,11 +19,11 @@ class WideButton extends StatelessWidget {
         child: InkWell(
           onTap: onPressed,
           child: Container(
-            decoration: BoxDecoration(color: Colors.pink, ),
+            decoration: BoxDecoration(color: AppColors.primary, ),
             width: MediaQuery.of(context).size.width*0.85,
             height: 50.0,
             child: Center(
-              child: Text(message, style: TextStyle(color: Colors.white,),),
+              child: Text(message, style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
             ),
           ),
         ),

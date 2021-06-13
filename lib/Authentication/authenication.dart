@@ -1,3 +1,4 @@
+import 'package:e_shop/Colors.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 import 'register.dart';
@@ -16,10 +17,11 @@ class _AuthenticScreenState extends State<AuthenticScreen> {
         flexibleSpace: Container(
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
-              colors: [Colors.limeAccent,Colors.lightGreenAccent],
-              begin : const FractionalOffset(0.0,0.0),
-              end : const FractionalOffset(0.0, 0.5),
-              stops: [0,1],
+              colors: [Colors.yellow,Colors.pinkAccent],
+              //begin : Alignment.
+              begin : const FractionalOffset(0.0,0.95),
+              end : const FractionalOffset(0.95, 0.4),
+              stops: [0.0,1.0],
               tileMode: TileMode.clamp,
             )
             )
@@ -35,7 +37,7 @@ class _AuthenticScreenState extends State<AuthenticScreen> {
         bottom: TabBar(
           tabs:[
             Tab(icon: Icon(Icons.lock,color: Colors.white,),
-          text: 'login',),
+          text: 'login'),
             Tab(icon: Icon(Icons.perm_contact_calendar,color: Colors.white,),
               text: 'register',),
           ],
@@ -47,9 +49,10 @@ class _AuthenticScreenState extends State<AuthenticScreen> {
       body:Container(
           decoration: new BoxDecoration(
               gradient: new LinearGradient(
-                colors: [Colors.pink,Colors.lightGreenAccent],
+                colors: [ Colors.pinkAccent, //Colors.lightGreenAccent
+                  Colors.yellow], //Colors.lightGreenAccent
                 begin : Alignment.topRight,
-                end : Alignment.bottomCenter,
+                end : Alignment.bottomLeft,
               )
           ),
         child: TabBarView(

@@ -10,14 +10,11 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget
 {
   final PreferredSizeWidget bottom;
   MyAppBar({this.bottom});
-
-
   @override
   Widget build(BuildContext context) {
     return AppBar(
       iconTheme: IconThemeData(
         color: Colors.white,
-
       ),
       flexibleSpace: Container(
         decoration: new BoxDecoration(

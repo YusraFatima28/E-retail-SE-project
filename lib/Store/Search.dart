@@ -1,7 +1,12 @@
+import 'dart:ui';
+
+import 'package:e_shop/Colors.dart';
 import 'package:e_shop/Models/item.dart';
 import 'package:e_shop/Store/storehome.dart';
-import 'package:e_shop/Widgets/myDrawer.dart';
+import 'package:e_shop/Widgets/Navigation_drawer/collapsing_navigation_drawer_widget.dart';
+import 'package:e_shop/Widgets/newAppBar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -12,111 +17,167 @@ class SearchProduct extends StatefulWidget {
   _SearchProductState createState() => new _SearchProductState();
 }
 class _SearchProductState extends State<SearchProduct> {
+  bool isEmpty = false;
   Future<QuerySnapshot> docList;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.lightGreen,
-        appBar: AppBar(bottom: PreferredSize(child: searchWidget(), preferredSize: Size(56,56),),), //56,56
-        body: FutureBuilder<QuerySnapshot>(
+        backgroundColor: AppColors.primaryWhiteSmoke,
+        appBar: newAppBar(bottom: PreferredSize(child: searchWidget(), preferredSize: Size(56,56),),),
+        //AppBar(bottom: PreferredSize(child: searchWidget(), preferredSize: Size(56,56),),), //56,56
+        body:
+
+        buildSearchBody(),
+
+        /*FutureBuilder<QuerySnapshot>(
           future: docList, builder: (context,snap){
-            return snap.hasData ? ListView.builder(
-              itemCount: snap.data.documents.length,
-              itemBuilder: (context,index){
-                ItemModel model= ItemModel.fromJson(snap.data.documents[index].data);
-                return sourceInfo(model, context);
-              },
-            )
-                : Text('');
+          return snap.hasData ? ListView.builder(
+            itemCount: snap.data.documents.length,
+            itemBuilder: (context,index){
+              ItemModel model= ItemModel.fromJson(snap.data.documents[index].data);
+              return sourceInfo(model, context);
+            },
+          )
+              :   Text( '');
         },
-        ),
-        drawer: MyDrawer(),
+        ),*/
 
-
+        drawer: CollapsingNavigationDrawer(),
       ),
-
     );
   }
-
-  Widget BodySearch(){
-    return Column(
-       children: [
-         Center(
-           child: Column(
-             mainAxisAlignment: MainAxisAlignment.center,
-             children: [
-               Image.asset('images/serach.png'),
-               SizedBox(height: 20,),
-             ],
-           )
-         )
-       ],
+  Widget buildSearchBody() {
+    FutureBuilder<QuerySnapshot>(
+      future: docList, builder: (context,snap){
+      return snap.hasData ? ListView.builder(
+        itemCount: snap.data.documents.length,
+        itemBuilder: (context,index){
+          ItemModel model= ItemModel.fromJson(snap.data.documents[index].data);
+          return popularFoodCard(model, context);
+        },
+      )
+          : Text('');
+    },
+    );
+    String a= '1';
+    if (docList.toString()== 'null') {
+      print(docList.toString());
+      print(' doclist ');
+      return primaryContainer(
+        Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.all(20.0),
+                  child:
+                  SvgPicture.asset(
+                    "assets/images/noSearch.svg",
+                    height: 220,
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    "No Search Query",
+                    style: TextStyle(color: AppColors.textDark, fontSize: 20, fontWeight: FontWeight.bold),//boldFont(AppColors.textDark, 20),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(height: 10.0),
+                Container(
+                  child: Text(
+                    "Type a product name in the searchbar above.",
+                    style: TextStyle(color: AppColors.textGrey , fontSize: 18),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    } else {
+      print(docList);
+      print(' doclist ');
+      return FutureBuilder<QuerySnapshot>(
+        future: docList, builder: (context,snap){
+        return snap.hasData ? ListView.builder(
+          itemCount: snap.data.documents.length,
+          itemBuilder: (context,index){
+            ItemModel model= ItemModel.fromJson(snap.data.documents[index].data);
+            return popularFoodCard(model, context);
+          },
+        )
+            : Text('');
+      },
+      );
+      /*   return SearchTabWidget(
+        key: UniqueKey(),
+        prods: searchList,
+        cartNotifier: cartNotifier,
+        productsNotifier: productsNotifier,
+        cartProdID: cartProdID,
+      );*/
+    }
+  }
+  Widget primaryContainer(
+      Widget containerChild,
+      ) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      color: AppColors.primaryWhiteSmoke,
+      child: containerChild,
     );
   }
   Widget searchWidget(){
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        SizedBox(height: 6,),
         Container(
           alignment: Alignment.center,
           width: MediaQuery.of(context).size.width,
           height: 65.0,
           decoration: new BoxDecoration(
-            gradient: new LinearGradient(
-              colors: [Colors.limeAccent, Colors.lightGreenAccent], // Colors.limeAccent,Colors.lightGreenAccent
-              begin : const FractionalOffset(0.0,0.0),
-              end : const FractionalOffset(0.0, 0.5),
-              stops: [0,1],
-              tileMode: TileMode.clamp,
-            ),
+            color: AppColors.primary,
           ),
-          child : Container(
-            alignment: Alignment.bottomCenter,
-            width: MediaQuery.of(context).size.width-40.0,
-            height: 50.0,
+          child :
+       Container(
+            alignment: Alignment.center,
+            width: MediaQuery.of(context).size.width-30.0,
+            height: 60.0,
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(6.0),
+              color: AppColors.dashPurple,
+              borderRadius: BorderRadius.circular(9.0),
             ),
             child: Row(
               children: [
                 Padding(padding: EdgeInsets.only(left: 8.0),
-                child: Icon(Icons.search, color: Colors.blueGrey,),),
+                  child: Icon(Icons.search, color: AppColors.primaryPurple,),),
                 Flexible(child: Padding(padding: EdgeInsets.only(left: 8.0),
-                child: TextField(
-                  onChanged: (value){
-                    startSearching(value);
-                  },decoration: InputDecoration.collapsed(hintText: 'Search here .... '),
-                ),))
+                  child: TextField(
+                    onChanged: (value){
+                      startSearching(value);
+                    },decoration: InputDecoration.collapsed(hintText: 'Search here '),
+                  ),))
               ],
             ),
-          ),
-        ),SizedBox(
-          height: 10,
+          ),),
+        SizedBox(
+          height: 8,
           width: MediaQuery.of(context).size.width,
         ),
-
-            /*Center(
-              child: Container(
-
-                alignment: Alignment.bottomCenter,
-                color: Colors.lightGreen,
-                height: 99,
-                width: MediaQuery.of(context).size.width,
-                child: Center(
-    child: (
-    Padding(padding: EdgeInsets.all(0),
-    child: Image.asset('images/search.png', height: MediaQuery.of(context).size.height,width: MediaQuery.of(context).size.width,),)
-                ),),
-              ),
-            )*/
-
       ],
     );
-
   }
   Future startSearching(String query) async {
-    docList= Firestore.instance.collection('items').where('shortInfo', isGreaterThanOrEqualTo: query).getDocuments();
+    print(docList);
+    print(' doocc ');
+    docList= Firestore.instance.collection('items').where('title', isEqualTo: query).getDocuments();
+    print(docList );
+    print(' doocc ');
   }
 }
