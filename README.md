@@ -1,7 +1,7 @@
 
 
 
-Flutter Android & iOS eCommerce App like Amazon | FlipKart | AliExpress | Daraz using Firebase Firestore.
-Developed by: Coding Cafe
+E-Retail is an electronic commerce mobile application developed for both
+android and ios phones.This application has been built using Flutter and Cloud Firestore for backend database.
 
-Mail us at: alizeb875@gmail.com
+
